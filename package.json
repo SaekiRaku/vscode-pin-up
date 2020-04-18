@@ -1,0 +1,107 @@
+{
+    "publisher": "saekiraku",
+    "icon": "resources/logo.png",
+	"name": "pin-up",
+	"displayName": "Pin Up Files",
+	"description": "Pin up files and folders that was frequently opened in your project.",
+    "version": "1.0.0",
+	"engines": {
+		"vscode": "^1.44.0"
+    },
+    "repository": {
+        "url": "https://github.com/SaekiRaku/vscode-pin-up"
+    },
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [ "*" ],
+	"main": "./src/index.js",
+	"contributes": {
+        "commands": [
+            {
+                "command": "pin-up.add-pin",
+                "title": "📌 Pin Up"
+            },
+            {
+                "command": "pin-up.remove-pin",
+                "title": "Remove",
+                "icon": {
+                    "light": "resources/remove-light.svg",
+                    "dark": "resources/remove-dark.svg"
+                }
+            },
+            {
+                "command": "pin-up.clear-pin",
+                "title": "Remove All"
+            }
+        ],
+        "viewsContainers": {
+            "activitybar": [
+                {
+                    "id": "view-activitybar",
+                    "title": "Pined Files",
+                    "icon": "resources/main-icon.svg"
+                }
+            ]
+        },
+        "viewsWelcome": [
+            {
+                "view": "view-activitybar",
+                "contents": "An extension that allows you to pin up some frequently opened files to here. \n Right click your files, and go for \"📌Pin Up\"! \n [Learn More](https://github.com/SaekiRaku/vscode-pin-up)"
+            }
+        ],
+        "views": {
+            "view-activitybar": [
+                {
+                    "id": "view-activitybar",
+                    "name": "Pined Files"
+                }
+            ],
+            "explorer": [
+                {
+                    "id": "view-explorer",
+                    "name": "Pined Files",
+                    "when": "pin-up-have-pined-files"
+                }
+            ]
+        },
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "pin-up.add-pin"
+                }
+            ],
+            "view/title": [
+                {
+                    "when": "view == view-activitybar || view == view-explorer",
+                    "command": "pin-up.clear-pin",
+                    "group": "navigation"
+                }
+            ],
+            "view/item/context": [
+                {
+                    "when": "view == view-activitybar || view == view-explorer",
+                    "command": "pin-up.remove-pin",
+                    "group": "inline"
+                }
+            ]
+        }
+	},
+	"scripts": {
+		"lint": "eslint .",
+		"pretest": "npm run lint",
+        "test": "node ./test/runTest.js",
+        "build": "vsce package"
+	},
+	"devDependencies": {
+		"@types/vscode": "^1.44.0",
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.2",
+		"@types/node": "^13.11.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.1.1",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.3.0"
+	}
+}
