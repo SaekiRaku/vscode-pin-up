@@ -2,9 +2,9 @@
     "publisher": "saekiraku",
     "icon": "resources/logo.png",
 	"name": "pin-up",
-	"displayName": "Pin Up Files",
+	"displayName": "Pin Up",
 	"description": "Pin up files and folders that was frequently opened in your project.",
-    "version": "1.0.0",
+    "version": "1.0.1",
 	"engines": {
 		"vscode": "^1.44.0"
     },

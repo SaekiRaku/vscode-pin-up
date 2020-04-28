@@ -93,21 +93,21 @@ class PinDataProvider {
     AddPin(file, nofresh) {
 
         // 处理原始数据
-        if (!file.path) {
+        if (!file.fsPath) {
             return
         }
 
         for (let i in this._pinedList) {
-            if (this._pinedList[i].resourceUri.path == file.path) {
+            if (this._pinedList[i].resourceUri.path == file.fsPath) {
                 return;
             }
         }
 
-        let isDir = fs.statSync(file.path).isDirectory();
+        let isDir = fs.statSync(file.fsPath).isDirectory();
 
         this._pinedList.push(
             new vscode.TreeItem(
-                vscode.Uri.file(file.path),
+                vscode.Uri.file(file.fsPath),
                 isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
             )
         )
