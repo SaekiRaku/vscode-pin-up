@@ -3,6 +3,8 @@ const path = require("path");
 const vscode = require("vscode");
 const { executeCommand } = vscode.commands
 
+const utils = require("./utils.js");
+
 class PinDataProvider {
 
     _root = vscode.workspace.rootPath;
@@ -49,14 +51,14 @@ class PinDataProvider {
             if (element.collapsibleState == vscode.TreeItemCollapsibleState.None) {
                 return element;
             } else {
-                let dirs = fs.readdirSync(element.resourceUri.path, { withFileTypes: true });
+                let dirs = fs.readdirSync(utils.fixedPath(element.resourceUri.path), { withFileTypes: true });
                 let result = [];
                 for (let i in dirs) {
                     let item = dirs[i];
                     let isDir = item.isDirectory();
                     result.push(
                         new vscode.TreeItem(
-                            vscode.Uri.file(path.resolve(element.resourceUri.path, item.name)),
+                            vscode.Uri.file(path.resolve(utils.fixedPath(element.resourceUri.path), item.name)),
                             isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
                         )
                     );
@@ -93,21 +95,21 @@ class PinDataProvider {
     AddPin(file, nofresh) {
 
         // 处理原始数据
-        if (!file.fsPath) {
+        if (!file.path) {
             return
         }
 
         for (let i in this._pinedList) {
-            if (this._pinedList[i].resourceUri.path == file.fsPath) {
+            if (this._pinedList[i].resourceUri.path == file.path) {
                 return;
             }
         }
 
-        let isDir = fs.statSync(file.fsPath).isDirectory();
+        let isDir = fs.statSync(utils.fixedPath(file.path)).isDirectory();
 
         this._pinedList.push(
             new vscode.TreeItem(
-                vscode.Uri.file(file.fsPath),
+                vscode.Uri.file(file.path),
                 isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
             )
         )

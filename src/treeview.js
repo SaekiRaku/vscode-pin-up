@@ -3,6 +3,7 @@ const { executeCommand } = vscode.commands
 const PinDataProvider = require("./PinDataProvider");
 
 var app = require("./app.js");
+const utils = require("./utils.js");
 
 module.exports = function (context) {
     app.pindata = new PinDataProvider();
@@ -16,8 +17,12 @@ module.exports = function (context) {
     });
 
     function onSelect(evt) {
-        if (evt.selection[0].collapsibleState == vscode.TreeItemCollapsibleState.None) {
-            executeCommand("vscode.open", evt.selection[0].resourceUri);
+        try{
+            if (evt.selection[0].collapsibleState == vscode.TreeItemCollapsibleState.None) {
+                executeCommand("vscode.open", evt.selection[0].resourceUri);
+            }
+        }catch(e){
+            console.error(e);
         }
     }
     
