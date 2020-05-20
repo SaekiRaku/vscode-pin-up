@@ -54,13 +54,13 @@
             "view-activitybar": [
                 {
                     "id": "view-activitybar",
-                    "name": "Pined Files"
+                    "name": "Pinned Files"
                 }
             ],
             "explorer": [
                 {
                     "id": "view-explorer",
-                    "name": "Pined Files",
+                    "name": "Pinned Files",
                     "when": "pin-up-have-pined-files"
                 }
             ]
