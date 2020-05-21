@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
     <title>remove-light</title>
     <desc>Created with Sketch.</desc>
     <g id="remove-light" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <path d="M6.675,9 L6.675,20.325 L17.325,20.325 L17.325,9 L18.675,9 L18.675,21.675 L5.325,21.675 L5.325,9 L6.675,9 Z M10.675,9 L10.675,18 L9.325,18 L9.325,9 L10.675,9 Z M14.675,9 L14.675,18 L13.325,18 L13.325,9 L14.675,9 Z M20.675,5.325 L20.675,8 L19.325,8 L19.325,6.675 L4.675,6.675 L4.675,8 L3.325,8 L3.325,5.325 L20.675,5.325 Z M15.675,2.325 L15.675,3.675 L8.325,3.675 L8.325,2.325 L15.675,2.325 Z" id="形状" fill="#000000" fill-rule="nonzero"></path>
+        <path d="M8,11 L8,28 L24,28 L24,11 L26,11 L26,30 L6,30 L6,11 L8,11 Z M14,11 L14,24 L12,24 L12,11 L14,11 Z M20,11 L20,24 L18,24 L18,11 L20,11 Z M28,6 L28,10 L26,10 L26,8 L6,8 L6,10 L4,10 L4,6 L28,6 Z M21,2 L21,4 L11,4 L11,2 L21,2 Z" id="形状" fill="#000000" fill-rule="nonzero"></path>
     </g>
 </svg>

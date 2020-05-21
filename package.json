@@ -4,7 +4,7 @@
 	"name": "pin-up",
 	"displayName": "Pin Up",
 	"description": "Pin up files and folders that was frequently opened in your project.",
-    "version": "1.0.2",
+    "version": "1.0.3",
 	"engines": {
 		"vscode": "^1.44.0"
     },
@@ -39,7 +39,7 @@
             "activitybar": [
                 {
                     "id": "view-activitybar",
-                    "title": "Pined Files",
+                    "title": "Pinned Files",
                     "icon": "resources/main-icon.svg"
                 }
             ]
@@ -61,7 +61,7 @@
                 {
                     "id": "view-explorer",
                     "name": "Pinned Files",
-                    "when": "pin-up-have-pined-files"
+                    "when": "pin-up-have-pinned-files"
                 }
             ]
         },

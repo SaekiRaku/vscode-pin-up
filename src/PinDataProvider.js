@@ -5,20 +5,27 @@ const { executeCommand } = vscode.commands
 
 const utils = require("./utils.js");
 
+const CONFIG_PATH = path.resolve(vscode.workspace.rootPath, ".vscode", "pinned-files.json")
+
+class PinnedItem {
+    constructor(uri, type) {
+        this.uri = uri;
+        this.type = type;
+    }
+}
+
 class PinDataProvider {
 
-    _root = vscode.workspace.rootPath;
-    _pinedList = [];
+    _pinnedList = [];
 
     _onDidChangeTreeData = new vscode.EventEmitter();
     onDidChangeTreeData = this._onDidChangeTreeData.event;
 
     constructor() {
-        let configFilePath = path.resolve(this._root, ".vscode", "pined-files.json");
-        if (!fs.existsSync(configFilePath)) {
+        if (!fs.existsSync(CONFIG_PATH)) {
             return;
         }
-        let config = fs.readFileSync(configFilePath).toString();
+        let config = fs.readFileSync(CONFIG_PATH).toString();
         try {
             config = JSON.parse(config);
         } catch (e) {
@@ -29,111 +36,80 @@ class PinDataProvider {
         }
         this.refresh();
     }
-
-    _toVscodeTreeViewChildren(sourceTreeNode) {
-        let result = [];
-        let children;
-        if (sourceTreeNode.children) {
-            children = sourceTreeNode.children;
-        } else {
-            children = sourceTreeNode;
-        }
-        for (let i in children) {
-            result.push(children[i].item);
-        }
-        return result;
-    }
-
+    
     getChildren(element) {
         if (!element) {
-            return this._pinedList;
+            return this._pinnedList.map(filepath => {
+                let isDir = fs.statSync(filepath).isDirectory();
+                let uri = vscode.Uri.file(filepath);
+                return new PinnedItem(uri, isDir ? vscode.FileType.Directory : vscode.FileType.File);
+            });
         } else {
-            if (element.collapsibleState == vscode.TreeItemCollapsibleState.None) {
-                return element;
-            } else {
-                let dirs = fs.readdirSync(utils.fixedPath(element.resourceUri.path), { withFileTypes: true });
-                let result = [];
-                for (let i in dirs) {
-                    let item = dirs[i];
-                    let isDir = item.isDirectory();
-                    result.push(
-                        new vscode.TreeItem(
-                            vscode.Uri.file(path.resolve(utils.fixedPath(element.resourceUri.path), item.name)),
-                            isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
-                        )
-                    );
-                }
-                return result;
-            }
+            let dirs = fs.readdirSync(utils.fixedPath(element.uri.path), { withFileTypes: true });
+            return dirs.map(fileItem => {
+                let filepath = path.resolve(utils.fixedPath(element.uri.path), fileItem.name)
+                let isDir = fileItem.isDirectory();
+                return new PinnedItem(
+                    vscode.Uri.file(filepath),
+                    isDir ? vscode.FileType.Directory : vscode.FileType.File
+                )
+            })
         }
     }
 
     getTreeItem(element) {
-        return element;
+        const treeItem = new vscode.TreeItem(element.uri, element.type === vscode.FileType.Directory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None);
+        if (element.type === vscode.FileType.File) {
+			treeItem.command = { command: 'pin-up.open-resource-uri', title: "Open File", arguments: [element.uri], };
+			treeItem.contextValue = 'file';
+        }
+        return treeItem;
     }
 
     refresh() {
         this._onDidChangeTreeData.fire();
-        if (this._pinedList.length) {
-            executeCommand("setContext", "pin-up-have-pined-files", true);
-            if (!fs.existsSync(path.resolve(this._root, ".vscode"))) {
-                fs.mkdirSync(path.resolve(this._root, ".vscode"));
+        if (this._pinnedList.length) {
+            executeCommand("setContext", "pin-up-have-pinned-files", true);
+            let configDir = path.dirname(CONFIG_PATH);
+            if (!fs.existsSync(configDir)) {
+                fs.mkdirSync(configDir);
             }
-            let configFilePath = path.resolve(this._root, ".vscode", "pined-files.json");
-            let result = [];
-            for (let i in this._pinedList) {
-                result.push(this._pinedList[i].resourceUri.path);
-            }
-            fs.writeFileSync(configFilePath, JSON.stringify(result));
+            fs.writeFileSync(CONFIG_PATH, JSON.stringify(this._pinnedList));
         } else {
-            executeCommand("setContext", "pin-up-have-pined-files", false);
+            if (fs.existsSync(CONFIG_PATH)) {
+                fs.unlinkSync(CONFIG_PATH);
+            }
+            executeCommand("setContext", "pin-up-have-pinned-files", false);
         }
     }
 
-    /******* *******/
+    /******* Commands *******/
     
     AddPin(file, nofresh) {
 
-        // 处理原始数据
-        if (!file.path) {
+        let filepath = utils.fixedPath(file.path);
+        
+        if (!filepath || this._pinnedList.indexOf(filepath) != -1) {
             return
         }
 
-        for (let i in this._pinedList) {
-            if (this._pinedList[i].resourceUri.path == file.path) {
-                return;
-            }
-        }
-
-        let isDir = fs.statSync(utils.fixedPath(file.path)).isDirectory();
-
-        this._pinedList.push(
-            new vscode.TreeItem(
-                vscode.Uri.file(file.path),
-                isDir ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None
-            )
-        )
+        this._pinnedList.push(filepath);
 
         if (!nofresh) {
             this.refresh()
         }
     }
 
-    RemovePin(treeitem) {
-        for (let i in this._pinedList) {
-            if (treeitem == this._pinedList[i]) {
-                this._pinedList.splice(i, 1);
-                break;
-            }
-        }
+    RemovePin(element) {
+        let index = this._pinnedList.indexOf(element.uri.path);
+        this._pinnedList.splice(index, 1);
         this.refresh();
     }
 
     ClearPin() {
-        this._pinedList = [];
-        let configFilePath = path.resolve(this._root, ".vscode", "pined-files.json");
-        if (fs.existsSync(configFilePath)) {
-            fs.unlinkSync(configFilePath);
+        this._pinnedList = [];
+        if (fs.existsSync(CONFIG_PATH)) {
+            fs.unlinkSync(CONFIG_PATH);
         }
         this.refresh();
     }

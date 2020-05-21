@@ -15,18 +15,4 @@ module.exports = function (context) {
     let viewExplorerTree = vscode.window.createTreeView("view-explorer", {
         treeDataProvider: app.pindata
     });
-
-    function onSelect(evt) {
-        try{
-            if (evt.selection[0].collapsibleState == vscode.TreeItemCollapsibleState.None) {
-                executeCommand("vscode.open", evt.selection[0].resourceUri);
-            }
-        }catch(e){
-            console.error(e);
-        }
-    }
-    
-
-    viewActivitybarTree.onDidChangeSelection(onSelect);
-    viewExplorerTree.onDidChangeSelection(onSelect);
 }
