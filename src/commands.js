@@ -22,7 +22,9 @@ module.exports = function (context) {
     /******* *******/
         
     let OpenResourceUri = registerCommand('pin-up.open-resource-uri', function (resourceUri) {
-        vscode.window.showTextDocument(resourceUri);
+        vscode.window.showTextDocument(resourceUri).catch(() => {
+            executeCommand("vscode.open", resourceUri);
+        });
     });
 
 
