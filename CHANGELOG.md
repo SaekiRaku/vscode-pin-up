@@ -4,6 +4,11 @@ All notable changes to the "vscode-pin-up" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.1.1] - 2020-05-29
+
+- Added: I18N Support of Chinese.
+- Fixed: Skip the coming process if not selected any files on pin up outside files.
+
 ## [1.1.0] - 2020-05-29
 
 - Added: Support to add files from outside of the workspace. (Feature Request #4)

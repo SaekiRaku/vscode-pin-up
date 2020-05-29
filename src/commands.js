@@ -18,7 +18,7 @@ module.exports = function (context) {
             openLabel: "📌 Pin Up"
         })
 
-        files.forEach(uri => {
+        files.length && files.forEach(uri => {
             share.pindata.AddPin(utils.fixedPath(uri.path));
         })
     }));

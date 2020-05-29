@@ -1,30 +1,32 @@
 {
     "publisher": "saekiraku",
     "icon": "resources/logo.png",
-	"name": "pin-up",
-	"displayName": "Pin Up",
-	"description": "Pin up files and folders that was frequently opened in your project.",
-    "version": "1.1.0",
-	"engines": {
-		"vscode": "^1.44.0"
+    "name": "pin-up",
+    "displayName": "Pin Up",
+    "description": "Pin up files and folders that was frequently opened in your project.",
+    "version": "1.1.1",
+    "engines": {
+        "vscode": "^1.44.0"
     },
     "repository": {
         "url": "https://github.com/SaekiRaku/vscode-pin-up"
     },
-	"categories": [
-		"Other"
-	],
-	"activationEvents": [ "*" ],
-	"main": "./src/index.js",
-	"contributes": {
+    "categories": [
+        "Other"
+    ],
+    "activationEvents": [
+        "*"
+    ],
+    "main": "./src/index.js",
+    "contributes": {
         "commands": [
             {
                 "command": "pin-up.add-pin",
-                "title": "📌 Pin Up"
+                "title": "%pin-up%"
             },
             {
                 "command": "pin-up.add-pin-outside",
-                "title": "📌 Pin Up (From outside files)",
+                "title": "%pin-up-outside%",
                 "icon": {
                     "light": "resources/add-light.svg",
                     "dark": "resources/add-dark.svg"
@@ -32,7 +34,7 @@
             },
             {
                 "command": "pin-up.remove-pin",
-                "title": "Remove",
+                "title": "%remove%",
                 "icon": {
                     "light": "resources/remove-light.svg",
                     "dark": "resources/remove-dark.svg"
@@ -40,14 +42,14 @@
             },
             {
                 "command": "pin-up.clear-pin",
-                "title": "Remove All"
+                "title": "%remove-all%"
             }
         ],
         "viewsContainers": {
             "activitybar": [
                 {
                     "id": "view-activitybar",
-                    "title": "Pinned Files",
+                    "title": "%pinned-files%",
                     "icon": "resources/main-icon.svg"
                 }
             ]
@@ -55,20 +57,20 @@
         "viewsWelcome": [
             {
                 "view": "view-activitybar",
-                "contents": "An extension that allows you to pin up some frequently opened files to here. \n Right click your files, and go for \"📌Pin Up\"! \n [Learn More](https://github.com/SaekiRaku/vscode-pin-up)"
+                "contents": "%welcome%"
             }
         ],
         "views": {
             "view-activitybar": [
                 {
                     "id": "view-activitybar",
-                    "name": "Pinned Files"
+                    "name": "%pinned-files%"
                 }
             ],
             "explorer": [
                 {
                     "id": "view-explorer",
-                    "name": "Pinned Files",
+                    "name": "%pinned-files%",
                     "when": "pin-up.have-pinned-files"
                 }
             ]
@@ -101,22 +103,24 @@
                 }
             ]
         }
-	},
-	"scripts": {
-		"lint": "eslint .",
-		"pretest": "npm run lint",
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "pretest": "npm run lint",
         "test": "node ./test/runTest.js",
-        "build": "vsce package"
-	},
-	"devDependencies": {
-		"@types/vscode": "^1.44.0",
-		"@types/glob": "^7.1.1",
-		"@types/mocha": "^7.0.2",
-		"@types/node": "^13.11.0",
-		"eslint": "^6.8.0",
-		"glob": "^7.1.6",
-		"mocha": "^7.1.1",
-		"typescript": "^3.8.3",
-		"vscode-test": "^1.3.0"
-	}
+        "build": "vsce package && node -r esm scripts/after-build.js"
+    },
+    "devDependencies": {
+        "@tybys/cross-zip": "^3.0.4",
+        "@types/glob": "^7.1.1",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^13.11.0",
+        "@types/vscode": "^1.44.0",
+        "eslint": "^6.8.0",
+        "esm": "^3.2.25",
+        "glob": "^7.1.6",
+        "mocha": "^7.1.1",
+        "typescript": "^3.8.3",
+        "vscode-test": "^1.3.0"
+    }
 }
