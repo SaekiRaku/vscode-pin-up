@@ -1,18 +1,16 @@
 const vscode = require('vscode');
-const { executeCommand } = vscode.commands
 const PinDataProvider = require("./PinDataProvider");
 
-var app = require("./app.js");
-const utils = require("./utils.js");
+var share = require("./share.js");
 
 module.exports = function (context) {
-    app.pindata = new PinDataProvider();
+    share.pindata = new PinDataProvider();
 
-    let viewActivitybarTree = vscode.window.createTreeView("view-activitybar", {
-        treeDataProvider: app.pindata
+    const viewActivitybarTree = vscode.window.createTreeView("view-activitybar", {
+        treeDataProvider: share.pindata
     });
 
-    let viewExplorerTree = vscode.window.createTreeView("view-explorer", {
-        treeDataProvider: app.pindata
+    const viewExplorerTree = vscode.window.createTreeView("view-explorer", {
+        treeDataProvider: share.pindata
     });
 }

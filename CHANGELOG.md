@@ -1,8 +1,13 @@
 # Change Log
 
-All notable changes to the "pin-up" extension will be documented in this file.
+All notable changes to the "vscode-pin-up" extension will be documented in this file.
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+
+## [1.1.0] - 2020-05-29
+
+- Added: Support to add files from outside of the workspace. (Feature Request #4)
+- Changed: Redesigned the logo.
 
 ## [1.0.3] - 2020-05-21
 

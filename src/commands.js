@@ -1,35 +1,41 @@
 const vscode = require('vscode');
 const { registerCommand, executeCommand } = vscode.commands;
+const utils = require("./utils.js");
 
-var app = require("./app.js");
+var share = require("./share.js");
 
 module.exports = function (context) {
 
-    executeCommand("setContext", "pin-up.list-view", "level")
+    context.subscriptions.push(registerCommand('pin-up.add-pin', function (file) {
+        share.pindata.AddPin(utils.fixedPath(file.path));
+    }));
 
-    let AddPin = registerCommand('pin-up.add-pin', function (file) {
-        app.pindata.AddPin(file);
-    });
+    context.subscriptions.push(registerCommand('pin-up.add-pin-outside', async function () {
+        let files = await vscode.window.showOpenDialog({
+            canSelectFiles: true,
+            canSelectFolders: true,
+            canSelectMany: true,
+            openLabel: "📌 Pin Up"
+        })
 
-    let RemovePin = registerCommand('pin-up.remove-pin', function (element) {
-        app.pindata.RemovePin(element);
-    });
+        files.forEach(uri => {
+            share.pindata.AddPin(utils.fixedPath(uri.path));
+        })
+    }));
 
-    let ClearPin = registerCommand('pin-up.clear-pin', function () {
-        app.pindata.ClearPin();
-    });
+    context.subscriptions.push(registerCommand('pin-up.remove-pin', function (element) {
+        share.pindata.RemovePin(element);
+    }));
 
-    /******* *******/
+    context.subscriptions.push(registerCommand('pin-up.clear-pin', function () {
+        share.pindata.ClearPin();
+    }));
+
+    /******* Common Commands *******/
         
-    let OpenResourceUri = registerCommand('pin-up.open-resource-uri', function (resourceUri) {
+    context.subscriptions.push(registerCommand('pin-up.open-resource-uri', function (resourceUri) {
         vscode.window.showTextDocument(resourceUri).catch(() => {
             executeCommand("vscode.open", resourceUri);
         });
-    });
-
-
-    context.subscriptions.push(AddPin);
-    context.subscriptions.push(RemovePin);
-    context.subscriptions.push(ClearPin);
-    context.subscriptions.push(OpenResourceUri);
+    }));
 }

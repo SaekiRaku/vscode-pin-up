@@ -4,7 +4,7 @@
 	"name": "pin-up",
 	"displayName": "Pin Up",
 	"description": "Pin up files and folders that was frequently opened in your project.",
-    "version": "1.0.3",
+    "version": "1.1.0",
 	"engines": {
 		"vscode": "^1.44.0"
     },
@@ -21,6 +21,14 @@
             {
                 "command": "pin-up.add-pin",
                 "title": "📌 Pin Up"
+            },
+            {
+                "command": "pin-up.add-pin-outside",
+                "title": "📌 Pin Up (From outside files)",
+                "icon": {
+                    "light": "resources/add-light.svg",
+                    "dark": "resources/add-dark.svg"
+                }
             },
             {
                 "command": "pin-up.remove-pin",
@@ -61,7 +69,7 @@
                 {
                     "id": "view-explorer",
                     "name": "Pinned Files",
-                    "when": "pin-up-have-pinned-files"
+                    "when": "pin-up.have-pinned-files"
                 }
             ]
         },
@@ -73,16 +81,23 @@
             ],
             "view/title": [
                 {
-                    "when": "view == view-activitybar || view == view-explorer",
-                    "command": "pin-up.clear-pin",
+                    "command": "pin-up.add-pin-outside",
                     "group": "navigation"
+                },
+                {
+                    "when": "view == view-activitybar || view == view-explorer",
+                    "command": "pin-up.clear-pin"
                 }
             ],
             "view/item/context": [
                 {
-                    "when": "view == view-activitybar || view == view-explorer",
+                    "when": "viewItem == pinned",
                     "command": "pin-up.remove-pin",
                     "group": "inline"
+                },
+                {
+                    "when": "viewItem == pinned",
+                    "command": "pin-up.remove-pin"
                 }
             ]
         }

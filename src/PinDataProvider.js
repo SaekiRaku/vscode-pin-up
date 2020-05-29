@@ -8,9 +8,10 @@ const utils = require("./utils.js");
 const CONFIG_PATH = path.resolve(vscode.workspace.rootPath, ".vscode", "pinned-files.json")
 
 class PinnedItem {
-    constructor(uri, type) {
+    constructor(uri, type, isRoot = false) {
         this.uri = uri;
         this.type = type;
+        this.isRoot = isRoot;
     }
 }
 
@@ -32,7 +33,7 @@ class PinDataProvider {
             return;
         }
         for (let i in config) {
-            this.AddPin({path:config[i]}, true);
+            this.AddPin(config[i], true);
         }
         this.refresh();
     }
@@ -42,7 +43,7 @@ class PinDataProvider {
             return this._pinnedList.map(filepath => {
                 let isDir = fs.statSync(filepath).isDirectory();
                 let uri = vscode.Uri.file(filepath);
-                return new PinnedItem(uri, isDir ? vscode.FileType.Directory : vscode.FileType.File);
+                return new PinnedItem(uri, isDir ? vscode.FileType.Directory : vscode.FileType.File, true);
             });
         } else {
             let dirs = fs.readdirSync(utils.fixedPath(element.uri.path), { withFileTypes: true });
@@ -59,9 +60,12 @@ class PinDataProvider {
 
     getTreeItem(element) {
         const treeItem = new vscode.TreeItem(element.uri, element.type === vscode.FileType.Directory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None);
+        if (element.isRoot) {
+            treeItem.contextValue = 'pinned';
+        }
         if (element.type === vscode.FileType.File) {
 			treeItem.command = { command: 'pin-up.open-resource-uri', title: "Open File", arguments: [element.uri], };
-			treeItem.contextValue = 'file';
+			// treeItem.contextValue = 'file';
         }
         return treeItem;
     }
@@ -69,7 +73,7 @@ class PinDataProvider {
     refresh() {
         this._onDidChangeTreeData.fire();
         if (this._pinnedList.length) {
-            executeCommand("setContext", "pin-up-have-pinned-files", true);
+            executeCommand("setContext", "pin-up.have-pinned-files", true);
             let configDir = path.dirname(CONFIG_PATH);
             if (!fs.existsSync(configDir)) {
                 fs.mkdirSync(configDir);
@@ -79,15 +83,13 @@ class PinDataProvider {
             if (fs.existsSync(CONFIG_PATH)) {
                 fs.unlinkSync(CONFIG_PATH);
             }
-            executeCommand("setContext", "pin-up-have-pinned-files", false);
+            executeCommand("setContext", "pin-up.have-pinned-files", false);
         }
     }
 
     /******* Commands *******/
     
-    AddPin(file, nofresh) {
-
-        let filepath = utils.fixedPath(file.path);
+    AddPin(filepath, nofresh) {
         
         if (!filepath || this._pinnedList.indexOf(filepath) != -1) {
             return
