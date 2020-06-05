@@ -115,6 +115,10 @@ class PinDataProvider {
         }
         this.refresh();
     }
+
+    HavePin(filepath) {
+        return (this._pinnedList.indexOf(filepath) !== -1)
+    }
 }
 
 module.exports = PinDataProvider;

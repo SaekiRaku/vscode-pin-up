@@ -1,8 +1,13 @@
 {
-    "pinned-files": "📌 Pinned Files",
     "welcome": "An extension that allows you to pin up some frequently opened files to here. \n Right click your files, and go for \"📌Pin Up\"! \n [Learn More](https://github.com/SaekiRaku/vscode-pin-up)",
+    "pinned-files": "📌 Pinned Files",
+
     "pin-up": "📌 Pin Up",
     "pin-up-outside": "📌 Pin Up (From outside files)",
-    "remove": "Remove",
-    "remove-all": "Remove All"
+    "remove-pin": "Remove Pin",
+    "remove-all": "Remove All",
+
+    "fs-create-file": "New File",
+    "fs-create-folder": "New Folder",
+    "fs-delete": "Delete to Trash"
 }

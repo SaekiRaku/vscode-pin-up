@@ -4,7 +4,7 @@
     "name": "pin-up",
     "displayName": "Pin Up",
     "description": "Pin up files and folders that was frequently opened in your project.",
-    "version": "1.1.1",
+    "version": "1.2.0",
     "engines": {
         "vscode": "^1.44.0"
     },
@@ -22,10 +22,12 @@
         "commands": [
             {
                 "command": "pin-up.add-pin",
+                "category": "Pin Up",
                 "title": "%pin-up%"
             },
             {
                 "command": "pin-up.add-pin-outside",
+                "category": "Pin Up",
                 "title": "%pin-up-outside%",
                 "icon": {
                     "light": "resources/add-light.svg",
@@ -34,7 +36,8 @@
             },
             {
                 "command": "pin-up.remove-pin",
-                "title": "%remove%",
+                "category": "Pin Up",
+                "title": "%remove-pin%",
                 "icon": {
                     "light": "resources/remove-light.svg",
                     "dark": "resources/remove-dark.svg"
@@ -42,7 +45,23 @@
             },
             {
                 "command": "pin-up.clear-pin",
+                "category": "Pin Up",
                 "title": "%remove-all%"
+            },
+            {
+                "command": "pin-up.fs-create-file",
+                "category": "Pin Up",
+                "title": "%fs-create-file%"
+            },
+            {
+                "command": "pin-up.fs-create-folder",
+                "category": "Pin Up",
+                "title": "%fs-create-folder%"
+            },
+            {
+                "command": "pin-up.fs-delete",
+                "category": "Pin Up",
+                "title": "%fs-delete%"
             }
         ],
         "viewsContainers": {
@@ -76,9 +95,32 @@
             ]
         },
         "menus": {
+            "commandPalette": [
+                {
+                    "command": "pin-up.add-pin",
+                    "when": "filesExplorerFocus"
+                },
+                {
+                    "command": "pin-up.remove-pin",
+                    "when": "filesExplorerFocus"
+                },
+                {
+                    "command": "pin-up.fs-create-file",
+                    "when": "filesExplorerFocus"
+                },
+                {
+                    "command": "pin-up.fs-create-folder",
+                    "when": "filesExplorerFocus"
+                },
+                {
+                    "command": "pin-up.fs-delete",
+                    "when": "filesExplorerFocus"
+                }
+            ],
             "explorer/context": [
                 {
-                    "command": "pin-up.add-pin"
+                    "command": "pin-up.add-pin",
+                    "group": "pin-up"
                 }
             ],
             "view/title": [
@@ -100,6 +142,18 @@
                 {
                     "when": "viewItem == pinned",
                     "command": "pin-up.remove-pin"
+                },
+                {
+                    "command": "pin-up.fs-create-file",
+                    "group": "files-operation@1"
+                },
+                {
+                    "command": "pin-up.fs-create-folder",
+                    "group": "files-operation@2"
+                },
+                {
+                    "command": "pin-up.fs-delete",
+                    "group": "files-operation@3"
                 }
             ]
         }
