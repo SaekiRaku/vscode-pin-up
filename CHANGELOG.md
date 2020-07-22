@@ -4,7 +4,7 @@ All notable changes to the "vscode-pin-up" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [1.2.0] - 2020-06-06
+## [1.2.0] - 2020-06-05
 
 - Added: Create file/folder and delete it in Pinned List.
 - Fixed: Add category property to each commands.
