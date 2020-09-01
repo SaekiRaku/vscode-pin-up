@@ -2,9 +2,9 @@
     "publisher": "saekiraku",
     "icon": "resources/logo.png",
     "name": "pin-up",
-    "displayName": "Pin Up",
-    "description": "Pin up files and folders that was frequently opened in your project.",
-    "version": "1.2.0",
+    "displayName": "📌 Pin Up",
+    "description": "Pin up files and folders that frequently opened in your project.",
+    "version": "1.3.0",
     "engines": {
         "vscode": "^1.44.0"
     },
@@ -22,12 +22,12 @@
         "commands": [
             {
                 "command": "pin-up.add-pin",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%pin-up%"
             },
             {
                 "command": "pin-up.add-pin-outside",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%pin-up-outside%",
                 "icon": {
                     "light": "resources/add-light.svg",
@@ -35,8 +35,13 @@
                 }
             },
             {
+                "command": "pin-up.alias-pin",
+                "category": "pin-up",
+                "title": "%set-alias%"
+            },
+            {
                 "command": "pin-up.remove-pin",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%remove-pin%",
                 "icon": {
                     "light": "resources/remove-light.svg",
@@ -45,22 +50,22 @@
             },
             {
                 "command": "pin-up.clear-pin",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%remove-all%"
             },
             {
                 "command": "pin-up.fs-create-file",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%fs-create-file%"
             },
             {
                 "command": "pin-up.fs-create-folder",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%fs-create-folder%"
             },
             {
                 "command": "pin-up.fs-delete",
-                "category": "Pin Up",
+                "category": "pin-up",
                 "title": "%fs-delete%"
             }
         ],
@@ -126,7 +131,8 @@
             "view/title": [
                 {
                     "command": "pin-up.add-pin-outside",
-                    "group": "navigation"
+                    "group": "navigation",
+                    "when": "view == view-activitybar || view == view-explorer"
                 },
                 {
                     "when": "view == view-activitybar || view == view-explorer",
@@ -141,7 +147,13 @@
                 },
                 {
                     "when": "viewItem == pinned",
-                    "command": "pin-up.remove-pin"
+                    "command": "pin-up.alias-pin",
+                    "group": "pins-operation@1"
+                },
+                {
+                    "when": "viewItem == pinned",
+                    "command": "pin-up.remove-pin",
+                    "group": "pins-operation@2"
                 },
                 {
                     "command": "pin-up.fs-create-file",

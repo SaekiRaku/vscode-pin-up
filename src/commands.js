@@ -34,6 +34,15 @@ module.exports = function (context) {
         share.pindata.ClearPin();
     }));
 
+    context.subscriptions.push(registerCommand('pin-up.alias-pin', async function (element) {
+        let input = await vscode.window.showInputBox({
+            "placeHolder": i18n("input-alias"),
+            "value": path.basename(path.dirname(element.uri.path))
+        });
+
+        share.pindata.AliasPin(element, input);
+    }));
+
     /******* Files Operation *******/
     
     context.subscriptions.push(registerCommand('pin-up.fs-create-file', async function (element) {

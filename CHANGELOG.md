@@ -4,6 +4,11 @@ All notable changes to the "vscode-pin-up" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.3.0] - 2020-09-01
+
+- Added: Set alias for pinned files to distinguish the same name to each other. (Resolve Feature Request of #7)
+- Fixed: The icon button of `pin outside` can be displayed on the right position now.
+
 ## [1.2.0] - 2020-06-05
 
 - Added: Create file/folder and delete it in Pinned List.

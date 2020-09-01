@@ -4,6 +4,7 @@ const translate = {
         "no": "No",
         "input-file-name": "Please input file name",
         "input-folder-name": "Please input folder name",
+        "input-alias": "Please input alias",
         "file-exists": "Directory/File is already exists, do you want to overwrite it?"
     },
     "zh": {
@@ -11,6 +12,7 @@ const translate = {
         "no": "否",
         "input-file-name": "请输入文件名",
         "input-folder-name": "请输入目录名",
+        "input-alias": "请输入别名",
         "file-exists": "文件或目录已存在，是否覆盖？"
     }
 }

@@ -18,6 +18,7 @@ class PinnedItem {
 class PinDataProvider {
 
     _pinnedList = [];
+    _aliasMap = {};
 
     _onDidChangeTreeData = new vscode.EventEmitter();
     onDidChangeTreeData = this._onDidChangeTreeData.event;
@@ -32,9 +33,24 @@ class PinDataProvider {
         } catch (e) {
             return;
         }
-        for (let i in config) {
-            this.AddPin(config[i], true);
+
+        if (Array.isArray(config)) {
+            // Transform V1 config to the latest structure.
+            config = {
+                "version": "2",
+                "pinnedList": JSON.parse(JSON.stringify(config)),
+                "aliasMap": {}
+            }
+            fs.writeFileSync(CONFIG_PATH, JSON.stringify(config));
         }
+
+
+        for (let i in config.pinnedList) {
+            this.AddPin(config.pinnedList[i], true);
+        }
+
+        this._aliasMap = config.aliasMap
+
         this.refresh();
     }
     
@@ -62,6 +78,17 @@ class PinDataProvider {
         const treeItem = new vscode.TreeItem(element.uri, element.type === vscode.FileType.Directory ? vscode.TreeItemCollapsibleState.Collapsed : vscode.TreeItemCollapsibleState.None);
         if (element.isRoot) {
             treeItem.contextValue = 'pinned';
+
+            if (this._aliasMap[element.uri.path]) {
+                treeItem.description = this._aliasMap[element.uri.path];
+            } else {
+                const fileName = path.basename(element.uri.path);
+                this._pinnedList.forEach(filePath => {
+                    if (fileName === path.basename(filePath) && element.uri.path != utils.fixedPath(filePath)) {
+                        treeItem.description = path.basename(path.dirname(element.uri.path));
+                    }
+                });
+            }
         }
         if (element.type === vscode.FileType.File) {
 			treeItem.command = { command: 'pin-up.open-resource-uri', title: "Open File", arguments: [element.uri], };
@@ -78,7 +105,11 @@ class PinDataProvider {
             if (!fs.existsSync(configDir)) {
                 fs.mkdirSync(configDir);
             }
-            fs.writeFileSync(CONFIG_PATH, JSON.stringify(this._pinnedList));
+            fs.writeFileSync(CONFIG_PATH, JSON.stringify({
+                "version": "2",
+                "pinnedList": this._pinnedList,
+                "aliasMap": this._aliasMap
+            }));
         } else {
             if (fs.existsSync(CONFIG_PATH)) {
                 fs.unlinkSync(CONFIG_PATH);
@@ -105,6 +136,16 @@ class PinDataProvider {
     RemovePin(element) {
         let index = this._pinnedList.indexOf(element.uri.path);
         this._pinnedList.splice(index, 1);
+        delete this._aliasMap[element.uri.path];
+        this.refresh();
+    }
+
+    AliasPin(element, alias) {
+        if (alias) {
+            this._aliasMap[element.uri.path] = alias;
+        } else {
+            delete this._aliasMap[element.uri.path];
+        }
         this.refresh();
     }
 
