@@ -84,7 +84,7 @@ class PinDataProvider {
             } else {
                 const fileName = path.basename(element.uri.path);
                 this._pinnedList.forEach(filePath => {
-                    if (fileName === path.basename(filePath) && element.uri.path != utils.fixedPath(filePath)) {
+                    if (fileName === path.basename(filePath) && utils.fixedPath(element.uri.path) != utils.fixedPath(filePath)) {
                         treeItem.description = path.basename(path.dirname(element.uri.path));
                     }
                 });

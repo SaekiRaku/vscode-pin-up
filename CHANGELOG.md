@@ -4,6 +4,10 @@ All notable changes to the "vscode-pin-up" extension will be documented in this 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.3.1] - 2020-09-02
+
+- Fixed: Now, it will only display the alias while there have duplicated file name in the pinned list on Windows.
+
 ## [1.3.0] - 2020-09-01
 
 - Added: Set alias for pinned files to distinguish the same name to each other. (Resolve Feature Request of #7)
