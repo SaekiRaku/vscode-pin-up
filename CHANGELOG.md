@@ -2,7 +2,9 @@
 
 All notable changes to the "vscode-pin-up" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [1.3.2] - 2020-09-13
+
+- Added: An new configuration `pin-up.confirm.removePin(boolean)` that indicate if display a confirm modal before remove or clear the pins.
 
 ## [1.3.1] - 2020-09-02
 

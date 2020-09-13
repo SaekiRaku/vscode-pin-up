@@ -26,11 +26,29 @@ module.exports = function (context) {
         })
     }));
 
-    context.subscriptions.push(registerCommand('pin-up.remove-pin', function (element) {
+    context.subscriptions.push(registerCommand('pin-up.remove-pin', async function (element) {
+        let config = vscode.workspace.getConfiguration('pin-up');
+        if (config.confirm.removePin) {
+            const yes = i18n("yes");
+            const no = i18n("no");
+            let confirm = await vscode.window.showWarningMessage(i18n("confirm-to-remove-pin"), { modal: true }, yes, no);
+            if (confirm === no) {
+                return;
+            }
+        }
         share.pindata.RemovePin(element);
     }));
 
-    context.subscriptions.push(registerCommand('pin-up.clear-pin', function () {
+    context.subscriptions.push(registerCommand('pin-up.clear-pin', async function () {
+        let config = vscode.workspace.getConfiguration('pin-up');
+        if (config.confirm.removePin) {
+            const yes = i18n("yes");
+            const no = i18n("no");
+            let confirm = await vscode.window.showWarningMessage(i18n("confirm-to-clear-pin"), { modal: true }, yes, no);
+            if (confirm === no) {
+                return;
+            }
+        }
         share.pindata.ClearPin();
     }));
 
