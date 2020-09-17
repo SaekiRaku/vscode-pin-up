@@ -63,6 +63,14 @@ class PinDataProvider {
             });
         } else {
             let dirs = fs.readdirSync(utils.fixedPath(element.uri.path), { withFileTypes: true });
+            dirs.sort((a, b) => {
+                if (a.isDirectory() && !b.isDirectory()) {
+                    return -1;
+                } else if (!a.isDirectory() && b.isDirectory()) {
+                    return 1;
+                }
+                return 0;
+            })
             return dirs.map(fileItem => {
                 let filepath = path.resolve(utils.fixedPath(element.uri.path), fileItem.name)
                 let isDir = fileItem.isDirectory();

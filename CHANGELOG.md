@@ -2,6 +2,10 @@
 
 All notable changes to the "vscode-pin-up" extension will be documented in this file.
 
+## [1.3.3] - 2020-09-17
+
+- Changed: The ordering behavior inside the pinned folders will be same as VSCode explorer view. (Fixed Issue #9)
+
 ## [1.3.2] - 2020-09-13
 
 - Added: An new configuration `pin-up.confirm.removePin(boolean)` that indicate if display a confirm modal before remove or clear the pins.
