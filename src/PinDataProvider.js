@@ -19,6 +19,7 @@ class PinDataProvider {
 
     _pinnedList = [];
     _aliasMap = {};
+    _ignoreList = [];
 
     _onDidChangeTreeData = new vscode.EventEmitter();
     onDidChangeTreeData = this._onDidChangeTreeData.event;
@@ -27,6 +28,10 @@ class PinDataProvider {
         if (!fs.existsSync(CONFIG_PATH)) {
             return;
         }
+
+        let extensionConfig = vscode.workspace.getConfiguration('pin-up');
+        this._ignoreList = extensionConfig.globalIgnore;
+
         let config = fs.readFileSync(CONFIG_PATH).toString();
         try {
             config = JSON.parse(config);
@@ -71,14 +76,31 @@ class PinDataProvider {
                 }
                 return 0;
             })
-            return dirs.map(fileItem => {
+
+            let childrens = [];
+
+            dirs.forEach(fileItem => {
                 let filepath = path.resolve(utils.fixedPath(element.uri.path), fileItem.name)
                 let isDir = fileItem.isDirectory();
-                return new PinnedItem(
+                if (isDir) {
+                    filepath += "/";
+                }
+
+                for (let i in this._ignoreList) {
+                    let regexp = new RegExp(this._ignoreList[i]);
+                    console.log(filepath, regexp.test(filepath), this._ignoreList[i]);
+                    if (regexp.test(filepath)) {
+                        return;
+                    }
+                }
+
+                childrens.push(new PinnedItem(
                     vscode.Uri.file(filepath),
                     isDir ? vscode.FileType.Directory : vscode.FileType.File
-                )
-            })
+                ));
+            });
+
+            return childrens;
         }
     }
 

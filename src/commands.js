@@ -13,6 +13,11 @@ module.exports = function (context) {
         share.pindata.AddPin(utils.fixedPath(file.path));
     }));
 
+    context.subscriptions.push(registerCommand('pin-up.add-pin-current', function () {
+        
+        // share.pindata.AddPin(utils.fixedPath(file.path));
+    }));
+
     context.subscriptions.push(registerCommand('pin-up.add-pin-outside', async function () {
         let files = await vscode.window.showOpenDialog({
             canSelectFiles: true,

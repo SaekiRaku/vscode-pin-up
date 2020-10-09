@@ -3,8 +3,8 @@
     "icon": "resources/logo.png",
     "name": "pin-up",
     "displayName": "📌 Pin Up",
-    "description": "Pin up files and folders that frequently opened in your project.",
-    "version": "1.3.3",
+    "description": "Pin up files and folders that frequently used in your project, and access them later with more convenience",
+    "version": "1.4.0",
     "engines": {
         "vscode": "^1.44.0"
     },
@@ -20,12 +20,22 @@
     "main": "./src/index.js",
     "contributes": {
         "configuration": {
-            "title": "PinUp",
+            "title": "📌 Pin Up",
             "properties": {
+                "pin-up.ui.emoji": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "[Developing] Whether using emojis to enhance the visual performance (Such as `📌 Pin Up`)"
+                },
                 "pin-up.confirm.removePin": {
                     "type": "boolean",
                     "default": true,
                     "description": "Confirm before remove the pin."
+                },
+                "pin-up.globalIgnore": {
+                    "type": "array",
+                    "default": ["\\.git\/"],
+                    "description": "Hidden some files or folders on the Pinned list by RegExp."
                 }
             }
         },
@@ -34,6 +44,11 @@
                 "command": "pin-up.add-pin",
                 "category": "pin-up",
                 "title": "%pin-up%"
+            },
+            {
+                "command": "pin-up.add-pin-current",
+                "category": "pin-up",
+                "title": "%pin-up-current%"
             },
             {
                 "command": "pin-up.add-pin-outside",

@@ -3,7 +3,8 @@
     "pinned-files": "📌 Pinned Files",
 
     "pin-up": "📌 Pin Up",
-    "pin-up-outside": "📌 Pin Up (From outside files)",
+    "pin-up-current": "📌 Pin Up Current File",
+    "pin-up-outside": "📌 Pin Up Outside Files & Folders",
     "set-alias": "Set Alias",
     "remove-pin": "Remove Pin",
     "remove-all": "Remove All",
