@@ -2,9 +2,11 @@
 
 All notable changes to the "vscode-pin-up" extension will be documented in this file.
 
-## [1.4.0]
+## [1.4.0] - 2020-10-09
 
 - Added: Collapse all button.
+- Added: Pin up current actived file (defualt keybord shortcut: `ctrl/cmd + alt + p`). #13
+- Added: New array setting of `pin-up.list.ignore` to hide some files or folders on the pinned list by RegExp. #10
 
 ## [1.3.3] - 2020-09-17
 

@@ -30,7 +30,13 @@ class PinDataProvider {
         }
 
         let extensionConfig = vscode.workspace.getConfiguration('pin-up');
-        this._ignoreList = extensionConfig.globalIgnore;
+        this._ignoreList = extensionConfig.list.ignore;
+
+        vscode.workspace.onDidChangeConfiguration(() => {
+            let extensionConfig = vscode.workspace.getConfiguration('pin-up');
+            this._ignoreList = extensionConfig.list.ignore;
+            this.refresh();
+        })
 
         let config = fs.readFileSync(CONFIG_PATH).toString();
         try {

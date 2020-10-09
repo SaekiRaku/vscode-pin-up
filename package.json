@@ -32,7 +32,7 @@
                     "default": true,
                     "description": "Confirm before remove the pin."
                 },
-                "pin-up.globalIgnore": {
+                "pin-up.list.ignore": {
                     "type": "array",
                     "default": ["\\.git\/"],
                     "description": "Hidden some files or folders on the Pinned list by RegExp."
@@ -92,6 +92,13 @@
                 "command": "pin-up.fs-delete",
                 "category": "pin-up",
                 "title": "%fs-delete%"
+            }
+        ],
+        "keybindings":[
+            {
+                "command": "pin-up.add-pin-current",
+                "key": "ctrl+alt+p",
+                "mac": "cmd+alt+p"
             }
         ],
         "viewsContainers": {

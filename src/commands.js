@@ -14,8 +14,13 @@ module.exports = function (context) {
     }));
 
     context.subscriptions.push(registerCommand('pin-up.add-pin-current', function () {
-        
-        // share.pindata.AddPin(utils.fixedPath(file.path));
+        let editor = vscode.window.activeTextEditor;
+        try {
+            share.pindata.AddPin(utils.fixedPath(editor.document.uri.path));
+        } catch (e) {
+            // TODO: i18n
+            vscode.window.showErrorMessage("Can't pin up current file")
+        }
     }));
 
     context.subscriptions.push(registerCommand('pin-up.add-pin-outside', async function () {
