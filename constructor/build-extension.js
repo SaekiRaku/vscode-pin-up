@@ -7,7 +7,7 @@ const PATH_SOURCE = path.resolve(PATH_ROOT, "next/source");
 const PATH_DIST = path.resolve(PATH_ROOT, "next/dist");
 
 const inputOptions = {
-    input: path.resolve(PATH_SOURCE, "index.js"),
+    input: path.resolve(PATH_SOURCE, "extension/index.js"),
 }
 
 const outputOptions = {
