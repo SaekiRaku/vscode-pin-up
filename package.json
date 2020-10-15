@@ -213,17 +213,22 @@
         "pretest": "npm run lint",
         "test": "node ./test/runTest.js",
         "build": "vsce package && node -r esm scripts/after-build.js",
-        "next:build": "node -r esm constructor/index.js"
+        "next:build": "cross-env NODE_ENV=production node -r esm constructor/index.js",
+        "next:watch": "cross-env NODE_ENV=development node -r esm constructor/index.js"
     },
     "devDependencies": {
+        "@rollup/plugin-alias": "^3.1.1",
+        "@rollup/plugin-node-resolve": "^9.0.0",
         "@tybys/cross-zip": "^3.0.4",
         "@types/glob": "^7.1.1",
         "@types/mocha": "^7.0.2",
         "@types/node": "^13.11.0",
         "@types/vscode": "^1.44.0",
+        "cross-env": "^7.0.2",
         "eslint": "^6.8.0",
         "esm": "^3.2.25",
         "glob": "^7.1.6",
+        "json-format": "^1.0.1",
         "mocha": "^7.1.1",
         "rollup": "^2.29.0",
         "typescript": "^3.8.3",
