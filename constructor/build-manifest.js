@@ -7,7 +7,7 @@ import env from "./env.js";
 
 const PATH_MANIFEST_DIRECTORY = path.resolve(env.path.source, "manifest");
 
-export default function build(options) {
+function build() {
     let files = fs.readdirSync(PATH_MANIFEST_DIRECTORY);
     let manifest = {};
     files.forEach((fileName) => {
@@ -16,4 +16,15 @@ export default function build(options) {
         Object.assign(manifest, fileContent);
     });
     fs.writeFileSync(path.resolve(env.path.dist, "package.json"), jsonFormat(manifest, { type: "space", size: 4 }));
+}
+
+function watch(){
+    fs.watch(PATH_MANIFEST_DIRECTORY, { recursive: true }, (evt) => {
+        build();
+    });
+}
+
+export default {
+    build,
+    watch
 }

@@ -15,6 +15,16 @@
 			]
 		},
 		{
+			"name": "Run Extension (Next)",
+			"type": "extensionHost",
+			"request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "sourceMaps": true,
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}/next/dist"
+			]
+		},
+		{
 			"name": "Extension Tests",
 			"type": "extensionHost",
 			"request": "launch",

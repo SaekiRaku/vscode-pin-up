@@ -2,10 +2,12 @@
 	"compilerOptions": {
 		"module": "commonjs",
 		"target": "es6",
-		"checkJs": false,  /* Typecheck .js files. */
-		"lib": [
-			"es6"
-		]
+		"checkJs": false,
+        "lib": ["es6"],
+        "baseUrl": "./next/source/extension",
+        "paths": {
+            "pinup/*": ["./*"]
+        }
 	},
 	"exclude": [
 		"node_modules"

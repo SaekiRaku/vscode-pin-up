@@ -214,7 +214,8 @@
         "test": "node ./test/runTest.js",
         "build": "vsce package && node -r esm scripts/after-build.js",
         "next:build": "cross-env NODE_ENV=production node -r esm constructor/index.js",
-        "next:watch": "cross-env NODE_ENV=development node -r esm constructor/index.js"
+        "next:watch": "cross-env NODE_ENV=development node -r esm constructor/index.js",
+        "next:docs": "serve ./docs"
     },
     "devDependencies": {
         "@rollup/plugin-alias": "^3.1.1",

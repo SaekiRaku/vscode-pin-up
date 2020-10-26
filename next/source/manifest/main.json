@@ -17,7 +17,7 @@
     "activationEvents": [
         "*"
     ],
-    "main": "./src/index.js",
+    "main": "./index.js",
     "contributes": {
         "configuration": {
             "title": "📌 Pin Up",
