@@ -1,15 +1,14 @@
 import common from "pinup/common";
+import { init as initConfig } from "pinup/config";
 import initViews from "pinup/views";
-
-// const initCommands = require("./commands.js");
-// const initTreeview = require("./treeview.js");
 
 export function activate(context) {
     common.context = context;
-    
+
+    initConfig()
     initViews();
 }
 
 export function deactivate() {
-    
+
 }

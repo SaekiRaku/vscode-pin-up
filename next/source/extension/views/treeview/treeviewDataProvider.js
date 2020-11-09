@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import vscode from "vscode";
 
 import config from "pinup/config";
 
@@ -74,6 +75,10 @@ export default class TreeviewDataProvider {
 
             return childrens;
         }
+    }
+
+    refresh() {
+        
     }
 
 }

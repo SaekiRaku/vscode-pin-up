@@ -19,7 +19,7 @@
 			"type": "extensionHost",
 			"request": "launch",
             "runtimeExecutable": "${execPath}",
-            "sourceMaps": true,
+			"sourceMaps": true,
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}/next/dist"
 			]

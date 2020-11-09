@@ -38,7 +38,7 @@ function watch() {
     watcher.on("event", event => {
         switch (event.code) {
             case "ERROR":
-                console.error(event);
+                console.error(event.error);
                 break;
         }
     })

@@ -18,7 +18,8 @@ function build() {
     fs.writeFileSync(path.resolve(env.path.dist, "package.json"), jsonFormat(manifest, { type: "space", size: 4 }));
 }
 
-function watch(){
+function watch() {
+    build();
     fs.watch(PATH_MANIFEST_DIRECTORY, { recursive: true }, (evt) => {
         build();
     });
