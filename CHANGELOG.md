@@ -2,6 +2,10 @@
 
 All notable changes to the "vscode-pin-up" extension will be documented in this file.
 
+## [1.4.1] - 2021-02-24
+
+- Fixed: Cancel button on remove pin icon removes the pin. (#18)
+
 ## [1.4.0] - 2020-10-09
 
 - Added: Collapse all button.

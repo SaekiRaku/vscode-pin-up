@@ -4,7 +4,7 @@
     "name": "pin-up",
     "displayName": "📌 Pin Up",
     "description": "Pin up files and folders that frequently used in your project, and access them later with more convenience",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "engines": {
         "vscode": "^1.44.0"
     },
