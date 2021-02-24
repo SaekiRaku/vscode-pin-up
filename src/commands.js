@@ -42,11 +42,10 @@ module.exports = function (context) {
             const yes = i18n("yes");
             const no = i18n("no");
             let confirm = await vscode.window.showWarningMessage(i18n("confirm-to-remove-pin"), { modal: true }, yes, no);
-            if (confirm === no) {
-                return;
+            if (confirm === yes) {
+                share.pindata.RemovePin(element);
             }
         }
-        share.pindata.RemovePin(element);
     }));
 
     context.subscriptions.push(registerCommand('pin-up.clear-pin', async function () {
@@ -55,11 +54,10 @@ module.exports = function (context) {
             const yes = i18n("yes");
             const no = i18n("no");
             let confirm = await vscode.window.showWarningMessage(i18n("confirm-to-clear-pin"), { modal: true }, yes, no);
-            if (confirm === no) {
-                return;
+            if (confirm === yes) {
+                share.pindata.ClearPin();
             }
         }
-        share.pindata.ClearPin();
     }));
 
     context.subscriptions.push(registerCommand('pin-up.alias-pin', async function (element) {
