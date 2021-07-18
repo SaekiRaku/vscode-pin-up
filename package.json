@@ -76,6 +76,15 @@
                 }
             },
             {
+                "command": "pin-up.refresh-pin",
+                "category": "pin-up",
+                "title": "%refresh-pin%",
+                "icon": {
+                    "light": "resources/refresh.svg",
+                    "dark": "resources/refresh.svg"
+                }
+            },
+            {
                 "command": "pin-up.clear-pin",
                 "category": "pin-up",
                 "title": "%remove-all%"
@@ -144,6 +153,10 @@
                     "when": "false"
                 },
                 {
+                    "command": "pin-up.refresh-pin",
+                    "when": "false"
+                },
+                {
                     "command": "pin-up.fs-create-file",
                     "when": "false"
                 },
@@ -185,12 +198,22 @@
                 },
                 {
                     "when": "viewItem == pinned",
+                    "command": "pin-up.refresh-pin",
+                    "group": "inline"
+                },
+                {
+                    "when": "viewItem == pinned",
                     "command": "pin-up.alias-pin",
                     "group": "pins-operation@1"
                 },
                 {
                     "when": "viewItem == pinned",
                     "command": "pin-up.remove-pin",
+                    "group": "pins-operation@2"
+                },
+                {
+                    "when": "viewItem == pinned",
+                    "command": "pin-up.refresh-pin",
                     "group": "pins-operation@2"
                 },
                 {
