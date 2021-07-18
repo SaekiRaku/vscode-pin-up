@@ -48,6 +48,10 @@ module.exports = function (context) {
         }
     }));
 
+    context.subscriptions.push(registerCommand('pin-up.refresh-pin', async function (element) {
+        share.pindata.RefreshPin(element);       
+    }));
+
     context.subscriptions.push(registerCommand('pin-up.clear-pin', async function () {
         let config = vscode.workspace.getConfiguration('pin-up');
         if (config.confirm.removePin) {

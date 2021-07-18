@@ -176,6 +176,10 @@ class PinDataProvider {
         this.refresh();
     }
 
+    RefreshPin(element) {
+        this.refresh();
+    }
+
     AliasPin(element, alias) {
         if (alias) {
             this._aliasMap[element.uri.path] = alias;

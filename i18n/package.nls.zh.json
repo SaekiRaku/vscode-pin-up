@@ -7,6 +7,7 @@
     "pin-up-outside": "📌 固定外部文件",
     "set-alias": "设置别名",
     "remove-pin": "移除固定",
+    "refresh-pin": "Refresh Pin",
     "remove-all": "移除全部",
 
     "fs-create-file": "新建文件",
