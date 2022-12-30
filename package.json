@@ -230,7 +230,7 @@
         "esm": "^3.2.25",
         "glob": "^7.1.6",
         "json-format": "^1.0.1",
-        "mocha": "^7.1.1",
+        "mocha": "^10.2.0",
         "rollup": "^2.29.0",
         "typescript": "^3.8.3",
         "vscode-test": "^1.3.0"
